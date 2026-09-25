@@ -22,18 +22,29 @@
         }
         .font-serif { font-family: 'Cormorant Garamond', serif; }
         
-        .animate-fade-in {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        /* --- ENHANCED ANIMATIONS --- */
+        .animate-fade-up {
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
             opacity: 0;
+            transform: translateY(30px);
         }
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
         .delay-400 { animation-delay: 400ms; }
+        .delay-500 { animation-delay: 500ms; }
         
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        .pulse-glow {
+            animation: pulseGlow 3s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 10px rgba(202, 138, 4, 0.2); }
+            100% { box-shadow: 0 0 25px rgba(234, 179, 8, 0.5); }
         }
 
         .ambient-glow {
@@ -63,22 +74,30 @@
     <div class="max-w-md w-full mx-auto flex-1 flex flex-col px-6 pt-12 pb-10 relative z-10">
         
         <!-- HEADER / BRANDING -->
-        <header class="flex flex-col items-center mb-8 animate-fade-in text-center">
-            <div class="relative w-20 h-20 mb-4">
-                <div class="absolute inset-0 rounded-full border border-yellow-600/40 animate-[spin_10s_linear_infinite]"></div>
-                <img src="logo.jpg" alt="Shondell Slaughter" class="w-full h-full rounded-full object-cover shadow-[0_0_15px_rgba(202,138,4,0.3)]">
+        <header class="flex flex-col items-center mb-8 animate-fade-up text-center">
+            
+            <!-- Logo with Spin Animation -->
+            <div class="relative w-24 h-24 mb-4">
+                <div class="absolute inset-0 rounded-full border-2 border-yellow-600/40 animate-[spin_8s_linear_infinite]"></div>
+                <div class="absolute inset-1 rounded-full border border-yellow-500/20 animate-[spin_12s_linear_infinite_reverse]"></div>
+                <img src="logo.jpg" alt="Shondell Slaughter Logo" class="w-full h-full rounded-full object-cover shadow-[0_0_20px_rgba(202,138,4,0.4)]">
             </div>
             
-            <p class="text-[10px] tracking-[0.3em] uppercase text-yellow-500 font-bold mb-2">
+            <!-- BRAND NAME ADDED -->
+            <h2 class="text-xl font-serif text-yellow-500 tracking-widest uppercase mb-1">
+                Shondell Slaughter
+            </h2>
+            <p class="text-[10px] tracking-[0.2em] uppercase text-zinc-400 font-medium mb-5">
                 Main Street Parlor • Joshua, TX
             </p>
+            
             <h1 class="text-4xl font-serif font-bold tracking-wide mb-3 leading-tight text-white">
                 The Science of <br> <span class="gold-gradient-text italic">Perfect Color</span>
             </h1>
         </header>
 
-        <!-- THE PITCH (Authority Building) -->
-        <div class="animate-fade-in delay-100 flex flex-col items-center mb-8">
+        <!-- THE PITCH -->
+        <div class="animate-fade-up delay-100 flex flex-col items-center mb-8">
             <p class="text-[15px] leading-relaxed text-zinc-300 font-light text-center px-2">
                 Every stunning color correction has a story, and every healthy curl relies on science. 
                 <br><br>
@@ -87,7 +106,7 @@
         </div>
 
         <!-- WHAT THEY GET (Value Props) -->
-        <div class="bg-zinc-900/50 border border-yellow-900/30 p-6 rounded-2xl mb-8 animate-fade-in delay-200 shadow-xl relative overflow-hidden">
+        <div class="bg-zinc-900/50 border border-yellow-900/30 p-6 rounded-2xl mb-10 animate-fade-up delay-200 shadow-xl relative overflow-hidden transition-transform duration-500 hover:-translate-y-1">
             <h3 class="font-serif text-xl text-yellow-500 mb-4 text-center border-b border-zinc-800/80 pb-3">Inside the Newsletter</h3>
             
             <div class="space-y-4">
@@ -106,27 +125,40 @@
             </div>
         </div>
 
-        <!-- AUTHORITY PROOF (Case Study Teaser) -->
-        <div class="mb-10 animate-fade-in delay-300">
+        <!-- AUTHORITY PROOF (CLICKABLE Case Study Teaser) -->
+        <div class="mb-10 animate-fade-up delay-300">
             <h4 class="text-xs font-semibold tracking-widest uppercase text-zinc-500 mb-3 text-center">Recent Case Study</h4>
-            <div class="relative overflow-hidden rounded-xl border border-zinc-800 shadow-2xl">
-                <!-- Ensure dimensional-copper-hair-color.jpg is uploaded to the repo -->
-                <img src="dimensional-copper-hair-color.jpg" alt="Dimensional Copper Color Correction" class="w-full h-48 object-cover filter brightness-90">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent p-4 flex flex-col justify-end">
-                    <span class="text-yellow-500 text-[10px] font-bold uppercase tracking-wider mb-1">Color Correction</span>
-                    <span class="text-white font-serif text-lg leading-tight">Reviving compromised texture into dimensional copper.</span>
+            
+            <!-- Clickable Link Wrapped Around the Image -->
+            <a href="https://substack.com/@dellalouise" target="_blank" class="relative overflow-hidden rounded-xl border border-zinc-800 shadow-2xl block group cursor-pointer transition-all duration-300 hover:border-yellow-600/50 hover:shadow-[0_0_20px_rgba(202,138,4,0.2)]">
+                
+                <!-- Zoom animation on hover/tap added to image -->
+                <img src="dimensional-copper-hair-color.jpg" alt="Dimensional Copper Color Correction" class="w-full h-56 object-cover filter brightness-90 group-hover:scale-105 transition-transform duration-700 ease-out">
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-5 flex flex-col justify-end">
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <span class="inline-block bg-black/60 backdrop-blur-sm border border-yellow-600/30 text-yellow-500 text-[9px] font-bold uppercase tracking-widest mb-2 px-2 py-1 rounded">Color Correction</span>
+                            <span class="block text-white font-serif text-lg leading-tight group-hover:text-yellow-400 transition-colors duration-300">Reviving compromised texture into dimensional copper.</span>
+                        </div>
+                        <div class="bg-yellow-500/20 p-2 rounded-full backdrop-blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-x-2 group-hover:translate-x-0">
+                            <i data-lucide="arrow-up-right" class="w-4 h-4 text-yellow-500"></i>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </a>
+            <p class="text-[10px] text-zinc-600 text-center mt-2 italic">Tap to read the full breakdown</p>
         </div>
 
         <!-- CALL TO ACTION / EMAIL CAPTURE -->
-        <div class="w-full animate-fade-in delay-400 bg-zinc-900 border border-yellow-600/30 p-6 rounded-2xl shadow-[0_0_30px_rgba(202,138,4,0.15)] text-center relative overflow-hidden">
+        <div class="w-full mt-auto animate-fade-up delay-400 bg-zinc-900 border border-yellow-600/40 p-6 rounded-2xl text-center relative overflow-hidden shadow-2xl">
             <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
             
             <h2 class="font-serif text-2xl text-white mb-2 relative z-10">Ready to transform your hair?</h2>
             <p class="text-xs text-zinc-400 mb-6 relative z-10">Join a community of clients who refuse to compromise on color and care.</p>
             
-            <a href="https://substack.com/@dellalouise" target="_blank" class="block w-full bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-bold py-4 rounded-xl shadow-[0_0_15px_rgba(234,179,8,0.4)] transition-transform active:scale-95 hover:brightness-110 flex items-center justify-center gap-2 text-sm uppercase tracking-wider relative z-10">
+            <!-- Animated Glowing Button -->
+            <a href="https://substack.com/@dellalouise" target="_blank" class="block w-full bg-gradient-to-r from-yellow-600 to-yellow-500 text-black font-bold py-4 rounded-xl pulse-glow transition-transform active:scale-95 hover:brightness-110 flex items-center justify-center gap-2 text-sm uppercase tracking-wider relative z-10">
                 <i data-lucide="mail-plus" class="w-5 h-5"></i>
                 Subscribe via Substack
             </a>
@@ -138,7 +170,7 @@
 
     <!-- ELEGANT FOOTER WITH SEAMLESS MAIN SITE CONNECTION -->
     <footer class="w-full mt-auto border-t border-zinc-800/60 bg-black/40 backdrop-blur-md pt-8 pb-10 px-6 z-10 relative">
-        <div class="max-w-md mx-auto text-center space-y-6 animate-fade-in delay-400">
+        <div class="max-w-md mx-auto text-center space-y-6 animate-fade-up delay-500">
             
             <!-- Seamless Connection Button -->
             <a href="https://shondellslaughter.com" class="inline-flex items-center justify-center gap-2 text-[11px] font-bold tracking-widest uppercase text-zinc-300 hover:text-black border border-zinc-700 bg-zinc-800 hover:bg-yellow-500 py-3.5 px-6 rounded-full transition-all duration-300 shadow-lg group">
@@ -149,7 +181,7 @@
             <div class="grid grid-cols-2 gap-4 text-xs text-zinc-500 uppercase tracking-widest border-y border-zinc-800/60 py-5 mt-4">
                 <div class="flex flex-col gap-1.5 items-center justify-center">
                     <span class="text-zinc-300 font-semibold mb-1">Studio Access</span>
-                    <span class="text-yellow-500 font-bold bg-yellow-500/10 py-1.5 px-3 rounded border border-yellow-900/30">By Appointment Only</span>
+                    <span class="text-yellow-500 font-bold bg-yellow-500/10 py-1.5 px-3 rounded border border-yellow-900/30 shadow-inner">By Appointment Only</span>
                 </div>
                 <div class="flex flex-col gap-2 border-l border-zinc-800/60 pl-4 justify-center items-start ml-2">
                     <a href="mailto:dellalouise39@gmail.com" class="hover:text-yellow-500 transition-colors flex items-center gap-2"><i data-lucide="mail" class="w-3.5 h-3.5"></i> Contact</a>
